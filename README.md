@@ -4,7 +4,7 @@
 
 # radionoise_socket api
 
-* on message : send message
+* backend socke.on message : send message
 
 > Param
 
