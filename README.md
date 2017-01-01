@@ -8,6 +8,6 @@
 
 > Param
 
-    msg : massge [String]
+    msg : massage [String]
 
-> u must make socket.on(massge)
+> u must make socket.on(massage)
