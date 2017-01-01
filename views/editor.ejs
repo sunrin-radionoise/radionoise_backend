@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>EDCAN-edit</title>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Exo" rel="stylesheet">
+    <link href="/css/add.css" rel="stylesheet">
+</head>
+
+<body class="container-fluid">
+    <div class="header">
+      EDCAN <div class="text">PortFolio</div>
+    </div>
+    <div class="null"></div>
+    <div class="add">
+    <div class="addImg">
+        <input type="file" id="imgUpload" class="file">
+        <input type="button" class="btn" value="저장">
+    </div>
+    <div class="addText">
+      <div class="context">
+        <textarea id="pad"></textarea>
+     </div>
+     <div class="realtime">
+        <div id="markdown"></div>
+     </div>
+     <script src="https://cdn.rawgit.com/showdownjs/showdown/1.0.2/dist/showdown.min.js"></script>
+     <script src="/js/editor.js"></script>
+   </div>
+</body>
+</html>
+
