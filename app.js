@@ -13,6 +13,7 @@ var app = express();
 var http = require('http');
 var server = http.createServer(app);
 var debug = require('debug')('dicon:server');
+var rnd_string = require("randomstring");
 
 var db = require('./mongo');
 
@@ -35,6 +36,8 @@ app.use(vhost("blog.iwin247.net", app));
 
 //router setting
 require('./routes/index')(app, db.portfolio);
+require('./routes/auth')(app, db.Users, rnd_string);
+require('./routes/user')(app, db.Users);
 
 
 //create server
