@@ -1,9 +1,9 @@
 var mongoose = require('mongoose');
-var db = mongoose.connect('mongodb://localhost/edcan');
+var db = mongoose.connect('mongodb://localhost/radionoise');
 
 var portfolioSchema = mongoose.Schema({
   id: {type: String},
-  user: {type: String},
+  name: {type: String},
   html: {type: String}
 });
 
