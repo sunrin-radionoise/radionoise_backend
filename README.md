@@ -42,7 +42,7 @@
 
 >  Response
 
-    HTTP 200 : user
+    HTTP 200 : user name and user token
 
     HTTP 400 : param missing or null or already exist
     
