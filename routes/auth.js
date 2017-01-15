@@ -26,7 +26,7 @@ function auth(app, Users, rnd_string) {
     } 
   });
   
-  app.post('/auth/singin', (req,res)=>{
+  app.post('/auth/signin', (req,res)=>{
     var params = ['id', 'passwd'];
     if(check_param(req.body, params)){
       Users.findOne({id: req.body.id, passwd: req.body.passwd}, (err, user)=>{
