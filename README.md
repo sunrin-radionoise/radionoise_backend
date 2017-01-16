@@ -32,6 +32,22 @@
     
     HTTP 500 : server err
     
+* POST /auth/signin
+
+> Param
+
+    id : user id [String]
+    
+    passwd : user passwd [String]
+
+>  Response
+
+    HTTP 200 : user name and user token
+
+    HTTP 400 : param missing or null or already exist
+    
+    HTTP 500 : server err
+    
      
 * GET /auth/auto/:token
 
