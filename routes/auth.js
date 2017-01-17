@@ -30,8 +30,8 @@ function auth(app, Users, rnd_string) {
     var params = ['id', 'passwd'];
     if(check_param(req.body, params)){
       Users.findOne({id: req.body.id, passwd: req.body.passwd}, (err, user)=>{
-        if(err) return return res.status(500).send("DB err");
-        if(user) return return res.status(200).json(user);
+        if(err) return res.status(500).send("DB err");
+        if(user) return res.status(200).json(user);
         else return res.status(404).send("incorrect id or passwd");
       });
     }else return res.status(400).send("param missing or null");
