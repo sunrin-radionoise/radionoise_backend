@@ -87,6 +87,20 @@
     HTTP 400 : param missing or null
 
     HTTP 404 : user not found (incorrect token)
+    
+* PUT /setting
+
+> Param
+
+    name : user name [String]
+
+>  Response
+
+    HTTP 200 : file 
+
+    HTTP 400 : param missing or null
+
+    HTTP 404 : user not found (incorrect token)
 
 # radionoise_socket api
 
