@@ -1,4 +1,3 @@
-var http = require('http');
 var express = require('express');
 var logger = require('morgan');
 var favicon = require('serve-favicon');
@@ -10,15 +9,12 @@ var bodyParser = require('body-parser');
 var vhost = require('vhost');
 var randomstring = require('randomstring');
 var app = express();
-var http = require('http');
-var server = http.createServer(app);
 var debug = require('debug')('dicon:server');
 var rnd_string = require("randomstring");
 var fs = require('fs');
 
 var db = require('./mongo');
-
-var port = normalizePort(process.env.PORT || '8080');
+var port = process.env.PORT || 8081;
 
 //set engin
 app.set('port', port);
@@ -33,7 +29,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(vhost("blog.iwin247.net", app));
 
 //router setting
 require('./routes/index')(app, db.portfolio);
@@ -42,26 +37,11 @@ require('./routes/version')(app);
 require('./routes/setting')(app,db.Users,fs);
 require('./routes/user')(app, db.Users);
 
+app.listen(port);
 
 //create server
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
-
-
-//socket
-var io = require('socket.io')(server);
-
-io.on('connection', function(socket){
-  socket.on('message', function(msg){
-    io.emit('message', msg);
-  });
-
-  socket.on('test', function(msg){
-    io.emit('test', msg);
-  });
-});
-
+app.on('error', onError);
+app.on('listening', onListening);
 
 //error handle
 function normalizePort(val) {
@@ -117,4 +97,3 @@ function onListening() {
 }
 
 module.exports = app;
-
