@@ -88,15 +88,32 @@
 
     HTTP 404 : user not found (incorrect token)
     
-* PUT /setting
+* GET /setting/:token
 
 > Param
 
-    name : user name [String]
+    token : user token [String]
 
 >  Response
 
-    HTTP 200 : file 
+    HTTP 200 : setting string
+
+    HTTP 400 : param missing or null
+
+    HTTP 404 : user not found (incorrect token)
+    
+    
+* POST /setting
+
+> Param
+
+    token : user token [String]
+    
+    setting: user setting [String]
+
+>  Response
+
+    HTTP 200 : sucess
 
     HTTP 400 : param missing or null
 
