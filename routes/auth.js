@@ -1,7 +1,5 @@
-module.exports = auth;
-
-function auth(app, Users, rnd_string) {
-  app.post('/auth/signup', (req, res) => {
+module.exports = (router, rnd_string, Users) =>{
+  router.post('/auth/signup', (req, res) => {
     var params = ['id', 'passwd', 'name'];
 
     if(check_param(req.body, params)){
@@ -24,9 +22,9 @@ function auth(app, Users, rnd_string) {
     }else{
       return res.status(400).send("param missing or null");
     } 
-  });
+  })
   
-  app.post('/auth/signin', (req,res)=>{
+  .post('/auth/signin', (req,res)=>{
     var params = ['id', 'passwd'];
     if(check_param(req.body, params)){
       Users.findOne({id: req.body.id, passwd: req.body.passwd}, (err, user)=>{
@@ -35,9 +33,9 @@ function auth(app, Users, rnd_string) {
         else return res.status(404).send("incorrect id or passwd");
       });
     }else return res.status(400).send("param missing or null");
-  });
+  })
 
-  app.get('/auth/auto/:token', (req, res)=>{
+  .get('/auth/auto/:token', (req, res)=>{
      var params = ['token'];
 
      if(check_param(req.params, params)){
@@ -52,6 +50,7 @@ function auth(app, Users, rnd_string) {
      }
   });
 
+  return router;
 }
 
 function check_param(req_param, params){

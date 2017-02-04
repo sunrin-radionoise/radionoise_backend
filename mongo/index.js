@@ -7,7 +7,7 @@ var UsersSchema = mongoose.Schema({
   passwd: {type: String},
   name: {type: String},
   token: {type: String},
-  setting: {type: Boolean}
+  setting: {type: String},
 });
 
 Users = mongoose.model("users", UsersSchema);
