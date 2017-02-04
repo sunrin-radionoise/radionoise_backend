@@ -15,7 +15,11 @@ var fs = require('fs');
 var router = express.Router();
 var async = require('async');
 
+//module setting
+var passport = require('./passport');
 var db = require('./mongo');
+var func = require('./func');
+
 var port = process.env.PORT || 8081;
 
 //set engin
@@ -33,7 +37,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //router setting
 var index = require('./routes/index')(router);
-var auth = require('./routes/auth')(router, rnd_string, db.Users);
+var auth = require('./routes/auth')(router, rnd_string, db.Users, passport, func);
 var version = require('./routes/version')(router);
 var user = require('./routes/user')(router, db.Users);
 var setting = require('./routes/setting')(router, fs, db.Users, async);

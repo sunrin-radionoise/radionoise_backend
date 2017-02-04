@@ -4,6 +4,7 @@ module.exports = (router, fs, Users, async, func) =>{
     Users.findOne({token: token}, (err, users)=>{
       if(err) res.status(500).send("DB err");
       if(users) res.status(200).send(users.setting);
+      else res.status(404).send("user not found");
     });
   })
   .post('/setting', (req, res) =>{
