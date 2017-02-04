@@ -1,4 +1,4 @@
-module.exports = (router) => {
+module.exports = (router, Users) => {
   router.get('/user', (req, res) =>{
     Users.find({}, (err, user)=> {
       if(err) res.status(400).send("db err");

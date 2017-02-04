@@ -35,7 +35,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 var index = require('./routes/index')(router);
 var auth = require('./routes/auth')(router, rnd_string, db.Users);
 var version = require('./routes/version')(router);
-var user = require('./routes/user')(router);
+var user = require('./routes/user')(router, db.Users);
 var setting = require('./routes/setting')(router, fs, db.Users, async);
 
 //router setting
