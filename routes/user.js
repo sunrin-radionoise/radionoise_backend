@@ -10,7 +10,7 @@ module.exports = (router, Users) => {
     const id = req.params.id;
     Users.findOne({id: id}, (err, user) => {
       if(err) res.status(400).send("db err");
-      if(users) res.status(200).json(users);
+      if(user) res.status(200).json(user);
       else res.status(404).send("user not found");
     });
   });

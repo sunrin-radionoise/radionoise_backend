@@ -1,4 +1,4 @@
-exports = (Users) =>{
+module.exports = (Users) =>{
   var passport = require('passport');
   var GitHubTokenStrategy = require('passport-github-token');
   var FacebookTokenStrategy = require('passport-facebook-token');
@@ -6,7 +6,7 @@ exports = (Users) =>{
   
   
   //passport serialize
-  passport.serializeUser(function(user, done) {done(null, user);});
+  passport.serializeUser((user, done) =>{ console.log(user); done(null, user);});
   passport.deserializeUser(function(obj, done) {done(null, obj);});
    
 
@@ -22,36 +22,11 @@ exports = (Users) =>{
   }))
 
   .use(new FacebookTokenStrategy({
-    clientID: "1213122912074048",
-    clientSecret: "259b6ddcb09ade12157f47f4fb2d5c95",
+    clientID: "1898081023756082",
+    clientSecret: "fc44b2a48aaaf1e0848e08854b7bbe68",
     profileFields: ['id', 'displayName', 'photos'],
-  }, function(accessToken, refreshToken, profile, done) {
-    console.log(profile);
-    Users.findOne({'userid': profile.id}, function(err, user) {
-      if(err){
-         return done(err);
-      }
-      if(!user) {
-        user = new Users({
-          userid: profile.id,
-          name: profile.displayName,
-          profile_image: profile.photos[0].value,
-          token: rndString.generate()
-        });
-
-        user.save(function(err) {
-          if (err) console.log(err);
-          else done(null, user);
-                
-        })
-      }else if (user) {
-        Users.findOne({userid: profile.id}, function(err, resul){
-          if(err) err;
-          if(resul) done(null, resul);
-        });
-
-      }
-    })
+  }, (accessToken, refreshToken, profile, done)=>{
+    done(null, profile);
   }))
 
   .use(new TwitterTokenStrategy({

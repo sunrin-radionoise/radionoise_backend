@@ -48,13 +48,39 @@ module.exports = (router, rnd_string, Users, passport, func) =>{
      }else{
        return res.status(400).send("param missing or null");
      }
-  });
+  })
   
+  //social auth
+  .get('/auth/github', passport.authenticate('github-token'))
+  .get('/fb/token', passport.authenticate('facebook-token'), function(req, res) {
+    if (req.user) {
+      Users.findOne({facebook_id: req.user.userid}, function(err, users) {
+        if(err) err;
+        if(users) res.status(200).send(users);
+        else res.status(401).send("not found");
+      });
+    } else  res.send(401, req.user);
+  })
 
-  .get('/auth/github', passport.authenticate('github-token'));
+  .get('/tw/token', passport.authenticate('twitter-token'), function(req, res) {
+    if(req.user) {
+      Users.findOne({userid: req.user.id}, function(err, result) {
+        if(err) err;
+        res.send(200, result);
+      });
+    } else  res.send(401, req.user);
+  })
+
+  //social auth callback
   .get('/auth/github/callback', passport.authenticate('facebook-token', {
     successRedirect: '/',
     failureRedirect: '/'
   }))
+
+  .get('/fb/callback', passport.authenticate('facebook-token', {
+    successRedirect: '/',
+    failureRedirect: '/'
+  }))
+  
   return router;
 }

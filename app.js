@@ -16,8 +16,8 @@ var router = express.Router();
 var async = require('async');
 
 //module setting
-var passport = require('./passport');
 var db = require('./mongo');
+var passport = require('./passport')(db.Users);
 var func = require('./func');
 
 var port = process.env.PORT || 8081;

@@ -2,3 +2,6 @@
 logs
 *.log
 npm-debug.log*
+*.swn
+*.swo
+*.swp

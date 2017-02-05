@@ -8,6 +8,10 @@ var UsersSchema = mongoose.Schema({
   name: {type: String},
   token: {type: String},
   setting: {type: String},
+  facebook_id: {type: String},
+  github_id: {type: String},
+  twitter_id: {type: String},
+  google_id: {type: String}
 });
 
 Users = mongoose.model("users", UsersSchema);
