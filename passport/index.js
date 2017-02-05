@@ -16,9 +16,7 @@ module.exports = (Users) =>{
     clientSecret: '48a2a6badc826ea8c1536cd95868e89e3ab67ceb',
     passReqToCallback: true
   }, (req, accessToken, refreshToken, profile, next) =>{
-    Users.findOrCreate({'github.id': profile.id}, function(error, user) {
-      return next(error, user);
-    });
+      return next(error, profile);
   }))
 
   .use(new FacebookTokenStrategy({
@@ -33,25 +31,7 @@ module.exports = (Users) =>{
     consumerKey: "SvRMQBeHtW8aIZVYQZnrxnorN",
     consumerSecret: "At91tGX1v5MMwwUvqzNUgjvpZrnCB6O41VehdJASHs86bieaFd",
   }, function(accessToken, refreshToken, profile, done) {
-    Users.findOne({'userid': profile.id}, function(err, user) {
-        if(err) return done(err);
-        if(!user){
-          user = new Users({
-            userid: profile.id,
-            name: profile.displayName,
-            profile_image: profile._json.profile_image_url,
-            token: rndString.generate()
-          });
-
-          user.save(function(err) {
-            if (err) console.log(err);
-            else done(null, profile);
-                
-          })
-        } else if (user) {
-            done(null, profile);
-        }
-    })
+    done(null, profile);
   }));
 
   return passport;
