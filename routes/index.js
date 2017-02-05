@@ -1,11 +1,11 @@
-module.exports = index;
-
-function index(app, portfolio) {
-  app.get('/', function(req, res){
+module.exports = (router) =>{
+  router.get('/', function(req, res){
      res.render('index');
-  });
+  })
 
-  app.get('/editor', function(req, res){
+  .get('/editor', function(req, res){
      res.render('editor');
   });
+
+  return router;
 }
