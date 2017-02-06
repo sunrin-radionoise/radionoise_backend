@@ -73,7 +73,6 @@ module.exports = (router, rnd_string, Users, passport, func) =>{
 
   .get('/fb/token', passport.authenticate('facebook-token'), function(req, res) {
     if (req.user) {
-      console.log(req.user);
       Users.findOne({facebook_id: req.user._json.id}, function(err, users) {
         if(err) err;
         if(users) res.status(200).send(users);
@@ -94,6 +93,21 @@ module.exports = (router, rnd_string, Users, passport, func) =>{
 
   .get('/tw/token', passport.authenticate('twitter-token'), (req, res) =>{
     if(req.user) {
+      Users.findOne({twitter_id: req.user._json.id}, function(err, users) {
+        if(err) err;
+        if(users) res.status(200).send(users);
+        else{
+          twitter_user = new Users({
+            twitter_id: req.user._json.id,
+            name: req.user._json.name,
+            token: rnd_string.generate(),
+          });
+          twitter_user.save((err, result)=>{
+            if(err) return res.stauts(500).send("DB err");
+            if(result) return res.status(200).json(twitter_user);
+          });
+        }
+      });
     } else  res.status(401).send(req.user);
   })
 
