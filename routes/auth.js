@@ -73,10 +73,21 @@ module.exports = (router, rnd_string, Users, passport, func) =>{
 
   .get('/fb/token', passport.authenticate('facebook-token'), function(req, res) {
     if (req.user) {
-      Users.findOne({facebook_id: req.user.userid}, function(err, users) {
+      console.log(req.user);
+      Users.findOne({facebook_id: req.user._json.id}, function(err, users) {
         if(err) err;
         if(users) res.status(200).send(users);
-        else res.status(404).send("not found");
+        else{
+          facebook_user = new Users({
+            facebook_id: req.user._json.id,
+            name: req.user._json.name,
+            token: rnd_string.generate(),
+          });
+          facebook_user.save((err, result)=>{
+            if(err) return res.stauts(500).send("DB err");
+            if(result) return res.status(200).json(facebook_user);
+          });
+        }
       });
     } else  res.status(401).send("unauthed");
   })
@@ -86,16 +97,5 @@ module.exports = (router, rnd_string, Users, passport, func) =>{
     } else  res.status(401).send(req.user);
   })
 
-  //social auth callback
-  .get('/auth/github/callback', passport.authenticate('facebook-token', {
-    successRedirect: '/',
-    failureRedirect: '/'
-  }))
-
-  .get('/fb/callback', passport.authenticate('facebook-token', {
-    successRedirect: '/',
-    failureRedirect: '/'
-  }))
-  
   return router;
 }
