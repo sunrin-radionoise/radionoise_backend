@@ -52,7 +52,23 @@ module.exports = (router, rnd_string, Users, passport, func) =>{
   
   //social auth
   .get('/github/token', passport.authenticate('github-token'), (req, res)=>{
-    console.log(req.user);  
+    if (req.user) {
+      Users.findOne({github_id: req.user._json.id}, function(err, users) {
+        if(err) err;
+        if(users) return res.status(200).send(users);
+        else{
+          github_user = new Users({
+            github_id: req.user._json.id,
+            name: req.user._json.name,
+            token: rnd_string.generate(),
+          });
+          github_user.save((err, result)=>{
+            if(err) return res.stauts(500).send("DB err");
+            if(result) return res.status(200).json(github_user);
+          });
+        }
+      });
+    }else res.status(401).send("unauthed");
   })
 
   .get('/fb/token', passport.authenticate('facebook-token'), function(req, res) {
@@ -60,9 +76,9 @@ module.exports = (router, rnd_string, Users, passport, func) =>{
       Users.findOne({facebook_id: req.user.userid}, function(err, users) {
         if(err) err;
         if(users) res.status(200).send(users);
-        else res.status(401).send("not found");
+        else res.status(404).send("not found");
       });
-    } else  res.status(401).send(req.user);
+    } else  res.status(401).send("unauthed");
   })
 
   .get('/tw/token', passport.authenticate('twitter-token'), (req, res) =>{

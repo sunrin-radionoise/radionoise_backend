@@ -8,12 +8,26 @@ var UsersSchema = mongoose.Schema({
   name: {type: String},
   token: {type: String},
   setting: {type: String},
+  profile: {type: String},
+  profile_img: {type: String},
   facebook_id: {type: String},
   github_id: {type: String},
   twitter_id: {type: String},
-  google_id: {type: String}
+  google_id: {type: String},
+  chats:[String]
 });
 
+var ChatsSchema = mongoose.Schema({
+   chat_peoples: {type: String}, 
+   room_token: {type: String},
+   chats:[{
+     talk: {type: String},
+     sex: {type: String}
+   }]
+});
+
+
 Users = mongoose.model("users", UsersSchema);
+chats = mongoose.model("chats", ChatsSchema);
 exports.Users = Users;
 exports.db = db;
