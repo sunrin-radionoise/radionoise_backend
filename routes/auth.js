@@ -52,18 +52,17 @@ module.exports = (router, rnd_string, Users, passport, func) =>{
   
   //social auth
   .get('/github/token', passport.authenticate('github-token'), (req, res)=>{
-
-   })
+    console.log(req.user);  
+  })
 
   .get('/fb/token', passport.authenticate('facebook-token'), function(req, res) {
-    console.log(req.user);
-    /*if (req.user) {
+    if (req.user) {
       Users.findOne({facebook_id: req.user.userid}, function(err, users) {
         if(err) err;
         if(users) res.status(200).send(users);
         else res.status(401).send("not found");
       });
-    } else  res.status(401).send(req.user);*/
+    } else  res.status(401).send(req.user);
   })
 
   .get('/tw/token', passport.authenticate('twitter-token'), (req, res) =>{

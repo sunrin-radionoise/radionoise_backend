@@ -6,9 +6,13 @@ module.exports = (Users) =>{
   
   
   //passport serialize
-  passport.serializeUser((user, done) =>{ console.log(user); done(null, user);});
-  passport.deserializeUser(function(obj, done) {done(null, obj);});
-   
+  passport.serializeUser((user, done)=>{
+    done(null, user);
+  });
+ 
+  passport.deserializeUser((obj, done)=>{
+    done(null, obj);
+  });
 
   //passport setting
   passport.use(new GitHubTokenStrategy({
@@ -16,7 +20,7 @@ module.exports = (Users) =>{
     clientSecret: '48a2a6badc826ea8c1536cd95868e89e3ab67ceb',
     passReqToCallback: true
   }, (req, accessToken, refreshToken, profile, next) =>{
-      return next(error, profile);
+      return next(null, profile);
   }))
 
   .use(new FacebookTokenStrategy({
@@ -28,9 +32,9 @@ module.exports = (Users) =>{
   }))
 
   .use(new TwitterTokenStrategy({
-    consumerKey: "SvRMQBeHtW8aIZVYQZnrxnorN",
-    consumerSecret: "At91tGX1v5MMwwUvqzNUgjvpZrnCB6O41VehdJASHs86bieaFd",
-  }, function(accessToken, refreshToken, profile, done) {
+    consumerKey: "yLLVmWwfmfTZdBn0gFUzKGriK",
+    consumerSecret: "AZ5KK7DOJwErRLelub2YOu09V0ETLHcxXHIKuBT3XCmRku9RhE",
+  },(accessToken, refreshToken, profile, done)=>{
     done(null, profile);
   }));
 

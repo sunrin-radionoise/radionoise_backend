@@ -8,12 +8,13 @@
   },
   "license": "ISC",
   "dependencies": {
+    "body-parser": ">=1.15.2",
     "express": ">=4.13.3",
     "http": ">=0.0.0",
-    "multer": ">=1.1.0",
     "mongoose": ">=4.1.10",
+    "multer": ">=1.1.0",
     "nodemon": ">=1.10.0",
     "randomstring": ">=1.1.5",
-    "body-parser": ">=1.15.2"
+    "underscore": "^1.8.3"
   }
 }
