@@ -52,7 +52,7 @@ app.use('/version', version);
 app.use('/user', user);
 app.use('/setting', setting);
 
-app.listen(port);
+//app.listen(port);
 
 //create server
 app.on('error', onError);
