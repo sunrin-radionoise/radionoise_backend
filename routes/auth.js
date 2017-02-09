@@ -1,5 +1,5 @@
 module.exports = (router, rnd_string, Users, passport, func) =>{
-  router.post('/auth/signup', (req, res) => {
+  router.post('/auth/signin', (req, res) => {
     var params = ['id', 'passwd', 'name'];
 
     if(func.check_param(req.body, params)){
@@ -24,7 +24,7 @@ module.exports = (router, rnd_string, Users, passport, func) =>{
     } 
   })
   
-  .post('/auth/signin', (req,res)=>{
+  .post('/auth/signup', (req,res)=>{
     var params = ['id', 'passwd'];
     if(func.check_param(req.body, params)){
       Users.findOne({id: req.body.id, passwd: req.body.passwd}, (err, user)=>{
@@ -53,7 +53,7 @@ module.exports = (router, rnd_string, Users, passport, func) =>{
   //social auth
   .get('/github/token', passport.authenticate('github-token'), (req, res)=>{
     if (req.user) {
-      Users.findOne({github_id: req.user._json.id}, function(err, users) {
+      Users.findOne({github_id: req.user._json.id}, {_id: 0}, function(err, users) {
         if(err) err;
         if(users) return res.status(200).send(users);
         else{
@@ -73,7 +73,7 @@ module.exports = (router, rnd_string, Users, passport, func) =>{
 
   .get('/fb/token', passport.authenticate('facebook-token'), function(req, res) {
     if (req.user) {
-      Users.findOne({facebook_id: req.user._json.id}, function(err, users) {
+      Users.findOne({facebook_id: req.user._json.id}, {_id: 0}, function(err, users) {
         if(err) err;
         if(users) res.status(200).send(users);
         else{
@@ -93,7 +93,7 @@ module.exports = (router, rnd_string, Users, passport, func) =>{
 
   .get('/tw/token', passport.authenticate('twitter-token'), (req, res) =>{
     if(req.user) {
-      Users.findOne({twitter_id: req.user._json.id}, function(err, users) {
+      Users.findOne({twitter_id: req.user._json.id}, {_id: 0}, function(err, users) {
         if(err) err;
         if(users) res.status(200).send(users);
         else{

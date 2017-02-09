@@ -18,11 +18,11 @@ var UsersSchema = mongoose.Schema({
 });
 
 var ChatsSchema = mongoose.Schema({
-   chat_peoples: {type: String}, 
+   chat_peoples: [String], 
    room_token: {type: String},
    chats:[{
-     talk: {type: String},
-     sex: {type: String}
+     talker: {type: String},
+     talke: {type: String}
    }]
 });
 
