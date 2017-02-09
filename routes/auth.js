@@ -1,5 +1,5 @@
 module.exports = (router, rnd_string, Users, passport, func) =>{
-  router.post('/auth/signup', (req, res) => {
+  router.post('/auth/signin', (req, res) => {
     var params = ['id', 'passwd', 'name'];
 
     if(func.check_param(req.body, params)){
@@ -24,7 +24,7 @@ module.exports = (router, rnd_string, Users, passport, func) =>{
     } 
   })
   
-  .post('/auth/signin', (req,res)=>{
+  .post('/auth/signup', (req,res)=>{
     var params = ['id', 'passwd'];
     if(func.check_param(req.body, params)){
       Users.findOne({id: req.body.id, passwd: req.body.passwd}, (err, user)=>{
