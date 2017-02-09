@@ -137,7 +137,7 @@
 
 > Param
 
-    token : user id [String]
+    token : user token [String]
     
     access_token: github aceess_token [String]
 
@@ -148,6 +148,42 @@
     HTTP 400 : param missing or null
 
     HTTP 404 : user not found (incorrect token)
+    
+* GET /user/{token}/tw/token
+
+> Param
+
+    token : user token [String]
+
+    oauth_token : twitter user token [String]
+    
+    oauth_token_secret : twitter user token secret [string]
+    
+    user_id:  twitter user id [string]
+    
+* GET /user/{token}/fb/token
+
+> Param
+
+    token : user token [String]
+    
+    access_token: github aceess_token [String]
+
+>  Response
+
+    HTTP 200 : ok
+
+    HTTP 400 : param missing or null
+
+    HTTP 404 : user not found (incorrect token)
+
+>  Response
+
+    HTTP 200 : ok
+
+    HTTP 404 : user not found (incorrect token)
+    
+    HTTP 500 : DB err[]
     
 * GET /setting/{token}
 
