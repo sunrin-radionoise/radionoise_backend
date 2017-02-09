@@ -49,7 +49,7 @@
     HTTP 500 : server err
     
      
-* GET /auth/auto/:token
+* GET /auth/auto/{token}
 
 > Param
 
@@ -119,7 +119,7 @@
 
     HTTP 200 : all user
     
-* GET /user/:id
+* GET /user/{id}
 
 > Param
 
@@ -133,7 +133,23 @@
 
     HTTP 404 : user not found (incorrect token)
     
-* GET /setting/:token
+* GET /user/{token}/github/token
+
+> Param
+
+    token : user id [String]
+    
+    access_token: github aceess_token [String]
+
+>  Response
+
+    HTTP 200 : ok
+
+    HTTP 400 : param missing or null
+
+    HTTP 404 : user not found (incorrect token)
+    
+* GET /setting/{token}
 
 > Param
 
