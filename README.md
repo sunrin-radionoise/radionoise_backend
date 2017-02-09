@@ -176,14 +176,6 @@
     HTTP 400 : param missing or null
 
     HTTP 404 : user not found (incorrect token)
-
->  Response
-
-    HTTP 200 : ok
-
-    HTTP 404 : user not found (incorrect token)
-    
-    HTTP 500 : DB err[]
     
 * GET /setting/{token}
 
