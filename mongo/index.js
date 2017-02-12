@@ -22,7 +22,7 @@ var ChatsSchema = mongoose.Schema({
    room_token: {type: String},
    chats:[{
      talker: {type: String},
-     talke: {type: String}
+     talk: {type: String}
    }]
 });
 

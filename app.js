@@ -52,12 +52,10 @@ app.use('/version', version);
 app.use('/user', user);
 app.use('/setting', setting);
 
-//app.listen(port);
 
 //create server
 app.on('error', onError);
 app.on('listening', onListening);
-
 //error handle
 function normalizePort(val) {
     var port = parseInt(val, 10);
@@ -105,6 +103,7 @@ function onError(error) {
 
 function onListening() {
     var addr = server.address();
+    console.log(addr);
     var bind = typeof addr === 'string' ?
         'pipe ' + addr :
         'port ' + addr.port;
