@@ -3,7 +3,7 @@ module.exports = (Users) =>{
   var GitHubTokenStrategy = require('passport-github-token');
   var FacebookTokenStrategy = require('passport-facebook-token');
   var TwitterTokenStrategy = require('passport-twitter-token');
-  
+  var TwitterStrategy = require('passport-twitter');
   
   //passport serialize
   passport.serializeUser((user, done)=>{
@@ -35,8 +35,19 @@ module.exports = (Users) =>{
     consumerKey: "yLLVmWwfmfTZdBn0gFUzKGriK",
     consumerSecret: "AZ5KK7DOJwErRLelub2YOu09V0ETLHcxXHIKuBT3XCmRku9RhE",
   },(accessToken, refreshToken, profile, done)=>{
+    console.log(accessToken);
     done(null, profile);
-  }));
+  }))
+
+passport.use(new TwitterStrategy({
+    consumerKey: "yLLVmWwfmfTZdBn0gFUzKGriK",
+    consumerSecret: "AZ5KK7DOJwErRLelub2YOu09V0ETLHcxXHIKuBT3XCmRku9RhE",
+    callbackURL: "http://radionoise.iwin247.kr/auth/twitter/callback"
+  },
+  function(token, tokenSecret, profile, cb) {
+    console.log(token);
+  }
+));
 
   return passport;
 }

@@ -111,5 +111,8 @@ module.exports = (router, rnd_string, Users, passport, func) =>{
     } else  res.status(401).send(req.user);
   })
 
+  .get('/twitter',
+  passport.authenticate('twitter'));
+
   return router;
 }

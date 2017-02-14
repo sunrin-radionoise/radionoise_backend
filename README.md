@@ -210,7 +210,29 @@
 
 # radionoise_socket api
 
-* backend socke.on message : send message
+* make : make message group
+
+> Param
+
+    token : User token [String]
+    
+    chat_people: User and someone who chat with Users [String Array]
+    
+> return emit make
+
+    room_token: maked room token
+
+> u must make socket.on(make)
+
+
+* connect : connect message group
+
+> Param
+    
+    room_token: chat room token [String]
+
+
+* message : send message
 
 > Param
 
