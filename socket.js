@@ -1,10 +1,7 @@
 module.exports = (io, Users, rndString, Chats) =>{
   io.on('connection', (socket)=>{
-    socket.on('message', (msg, room_token)=>{
-      io.broadcast.to(room_token).emit('message', msg);
-    })
 
-    .on('make', (token, chat_people)=>{
+    socket.on('make', (token, chat_people)=>{
       var new_Chat = new Chats({
         chat_people: chat_people,
         room_token: rndString.generate(),
@@ -13,21 +10,29 @@ module.exports = (io, Users, rndString, Chats) =>{
       new_Chat.save((err, result)=>{
         if(err) io.emit('make', 'save err');
         if(result){
-          io.emit('make', new_Chat.room_token);
-          io.room.join(new_Chat.room_token);
+          socket.room = new_Chat.room_token;
+          io.emit('make', socket.room);
+          socket.join(socket.room);
         }
       });
     })
 
-    .on('join', (room_token, token)=>{
+    .on('connect', (room_token, token)=>{
        Chats.findOne({room_token: room_token}, (err, user)=> {
          if(err) throw err;
-         if(users)  socket.room.join(user.token);
+         if(users) socket.leave(socket.room); socket.room = room_token; socket.join(room_token);
        });
     })
 
+    .on('disconnect', ()=>{
+      socket.leave(socket.room);
+      socket.room = "main";
+      socket.join(socket.room);
+    })
+
+
     .on('message', (msg)=>{
-      io.broadcast.emit('message', msg);
+      io.emit('message', msg);
     })
    
 
